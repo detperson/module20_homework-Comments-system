@@ -1,0 +1,11 @@
+{
+  "name": "project-comment-sistem-js-ts",
+  "version": "1.0.0",
+  "description": "Система комментирования на JS и TypeScript. Модуль 20. SkillFactory",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
