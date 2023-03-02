@@ -3,12 +3,94 @@
     <head>
         <meta charset="UTF-8">
         <title>Система комментирования JS+TS. Модуль 20. SkillFactory</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        
-        <h1>Первый заголовок</h1>
+        <div class="_container">
+            <div class="header-panel">
+                <div class="header-panel__comments">
+                    <div class="header-panel__comments-text">Комментарии</div>
+                    <div class="header-panel__comments-counter">(0)</div>
+                </div>
+                <div class="header-panel__sort">
+                    <div class="header-panel__sort-text">По количеству оценок</div>
+                    <img class="header-panel__sort-img" src="./images/arrow_down.svg" alt="arrow">
+                </div>
+                <div class="header-panel__favorites">
+                    <div class="header-panel__favorites-text">Избранное</div>
+                    <img class="header-panel__favorites-img" src="./images/favorites_list_logo.svg" alt="favorites-logo">
+                </div>
+            </div>
+            
+            <div class="input-block">
+                <div class="input-block__user-logo">
+                    <img class="input-block__logo-img user-logo-img" src="https://picsum.photos/seed/logo/100" alt="user-logo">
+                </div>
+                <div class="input-block__form">
+                    <div class="input-block__other">
+                        <div class="input-block__user-name user-name">
+                            <!-- Максим Авдеенко -->
+                            <input id="name-input" class="input-block__input-name" placeholder="Введите имя...">
+                        </div>
+                        <div class="input-block__counter-symbol">
+                            Макс. 1000 символов
+                        </div>
+                    </div>
+                    <div class="input-block__comment-input">
+                        <textarea id="textarea1" class="input-block__input input-main" name="comment" rows="1" placeholder="Введите текст сообщение..."></textarea>
+                    </div>
+                </div>
+                <div class="input-block__btn">
+                    <button class="input-block__btn-send btn-send" type="submit">Отправить</button>
+                </div>
+            </div>
+            <div class="comment-field">
 
-    <script src="./index.js"></script>
+<!--                <div class="comment">-->
+<!--                    <div class="comment__user-logo">-->
+<!--                        <img class="comment__user-logo user-logo-img" src="https://picsum.photos/seed/logo/100" alt="user-logo">-->
+<!--                    </div>-->
+<!--                    <div class="comment__form">-->
+<!--                        <div class="comment__other">-->
+<!--                            <div class="comment__user-name user-name">-->
+<!--                                &lt;!&ndash;${item.name}&ndash;&gt;-->
+<!--                                Максим Авдеенко-->
+<!--                            </div>-->
+<!--                            <div class="comment__post-data">-->
+<!--                                &lt;!&ndash;${item.time}&ndash;&gt;-->
+<!--                                02.03 17:11-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="comment__text-block">-->
+<!--                            <p class="comment__body">-->
+<!--                                &lt;!&ndash;${item.body}&ndash;&gt;-->
+<!--                                Самое обидное когда сценарий по сути есть - в виде книг, где нет сюжетных дыр,-->
+<!--                                всё логично, стройное повествование и достаточно взять и экранизировать оригинал-->
+<!--                                как это было в первых фильмах с мининимальным уровнем страрания актеров.-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <div class="comment__footer">-->
+<!--                            <div class="comment__footer-answer footer-btn">-->
+<!--                                <img class="comment__footer-answer-img" src="./images/answer_comment.svg" alt="answer">-->
+<!--                                <div class="comment__footer-answer-text">Ответить</div>-->
+<!--                            </div>-->
+<!--                            <div class="comment__footer-favorites footer-btn">-->
+<!--                                <img class="comment__footer-favorites-img" src="./images/favorites_comment_off.svg" alt="favorites">-->
+<!--                                <div class="comment__footer-favorites-text">В избранное</div>-->
+<!--                            </div>-->
+<!--                            <div class="comment__footer-rating">-->
+<!--                                <img class="rating-minus-img" src="./images/minus-rating.svg" alt="minus">-->
+<!--                                <div class="rating-count">0</div>-->
+<!--                                <img class="rating-plus-img" src="./images/plus-rating.svg" alt="plus">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+        </div>
+
+    <script src="./index_copy.js" type="module"></script>
     </body>
 </html>
