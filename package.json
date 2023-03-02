@@ -4,11 +4,14 @@
   "description": "Система комментирования на JS и TypeScript. Модуль 20. SkillFactory",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server -p 5566"
   },
   "author": "Ilya",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }
