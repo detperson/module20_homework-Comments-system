@@ -14,8 +14,15 @@
                     <div class="header-panel__comments-counter">(0)</div>
                 </div>
                 <div class="header-panel__sort">
-                    <div class="header-panel__sort-text">По количеству оценок</div>
-                    <img class="header-panel__sort-img" src="./images/arrow_down.svg" alt="arrow">
+                    <div class="header-panel__sort-dropdown">
+                        <div class="header-panel__sort-text" data-sort="rating">По количеству оценок</div>
+                        <div id="dropdownSort" class="header-panel__dropdown-content">
+                            <div class="sort-time">По дате</div>
+                            <div class="sort-rating">По количеству оценок</div>
+                            <div>По количеству ответов</div>
+                        </div>
+                    </div>
+                    <div class="header-panel__sort-arrow"></div>
                 </div>
                 <div class="header-panel__favorites">
                     <div class="header-panel__favorites-text">Избранное</div>
@@ -32,6 +39,7 @@
                         <div class="input-block__user-name user-name">
                             <!-- Максим Авдеенко -->
                             <input id="name-input" class="input-block__input-name" placeholder="Введите имя...">
+                            <div id="parent-answer" class="input-block__parent-answer" data-parent-id=" "></div>
                         </div>
                         <div class="input-block__counter-symbol">
                             Макс. 1000 символов
@@ -42,6 +50,7 @@
                     </div>
                 </div>
                 <div class="input-block__btn">
+                    <div class="input-block__warning-long-text">Слишком длинное сообщение</div>
                     <button class="input-block__btn-send btn-send" type="submit">Отправить</button>
                 </div>
             </div>
