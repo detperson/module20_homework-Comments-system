@@ -30,13 +30,21 @@ document.querySelector('.btn-send').onclick = function () {
         rating: 0,
         inFavorites: false,
         parent: parentId,
-        answers: 0,
+        answers: 0
     }
 
     commentBody.value = ''
     textArea.style.height = 'auto';
     counterSymbolMessage()
     comments.push(comment)
+    //Обновление счетчика ответов в комментарии
+    if (parentId !== ' ') {
+        comments.forEach(function (item) {
+            if (item.id == +parentId) {
+                item.answers++
+            }
+        })
+    }
     saveComments()
     com.showComments(comments)
 }
@@ -125,7 +133,6 @@ btnSortTime.addEventListener('click', function () {
     if (arrowSort.classList.contains('increase')) {
         arrowSort.classList.remove('increase')
     }
-    // sortTime()
     showSortedComments(byTimeIncrease, byTimeDecrease)
     document.querySelector('.header-panel__sort-text').dataset.sort = 'time'
     document.querySelector('.header-panel__sort-text').innerText = btnSortTime.innerText
@@ -138,10 +145,20 @@ btnSortRating.addEventListener('click', function () {
     if (arrowSort.classList.contains('increase')) {
         arrowSort.classList.remove('increase')
     }
-    // sortRating()
     showSortedComments(byRatingIncrease, byRatingDecrease)
     document.querySelector('.header-panel__sort-text').dataset.sort = 'rating'
     document.querySelector('.header-panel__sort-text').innerText = btnSortRating.innerText
+})
+
+let btnSortAnswers = document.querySelector('.sort-answers')
+
+btnSortAnswers.addEventListener('click', function () {
+    if (arrowSort.classList.contains('increase')) {
+        arrowSort.classList.remove('increase')
+    }
+    showSortedComments(byAnswersIncrease, byAnswersDecrease)
+    document.querySelector('.header-panel__sort-text').dataset.sort = 'answers'
+    document.querySelector('.header-panel__sort-text').innerText = btnSortAnswers.innerText
 })
 
 
@@ -151,10 +168,11 @@ let arrowSort = document.querySelector('.header-panel__sort-arrow')
 arrowSort.addEventListener('click', function() {
     arrowSort.classList.toggle('increase')
     if (document.querySelector('.header-panel__sort-text').dataset.sort === 'time') {
-        // sortTime()
         showSortedComments(byTimeIncrease, byTimeDecrease)
     } else if (document.querySelector('.header-panel__sort-text').dataset.sort === 'rating') {
         showSortedComments(byRatingIncrease, byRatingDecrease)
+    } else if (document.querySelector('.header-panel__sort-text').dataset.sort === 'answers') {
+        showSortedComments(byAnswersIncrease, byAnswersDecrease)
     }
 
 })
@@ -199,6 +217,18 @@ function byRatingIncrease() {
 function byRatingDecrease() {
     comments.sort(function (a, b) {
         return b.rating - a.rating
+    })
+}
+
+function byAnswersIncrease() {
+    comments.sort(function (a, b) {
+        return a.answers - b.answers
+    })
+}
+
+function byAnswersDecrease() {
+    comments.sort(function (a, b) {
+        return b.answers - a.answers
     })
 }
 
@@ -302,8 +332,4 @@ function ratingColor() {
             ratingCounts[i].style.color = 'rgba(0, 0, 0, .4)'
         }
     }
-}
-
-function checkCommentAnswer () {
-    document.querySelectorAll('.comment')
 }

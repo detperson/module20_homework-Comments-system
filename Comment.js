@@ -58,7 +58,7 @@ export default class Comment {
         comments.forEach(function(item) {
             if (item.parent !== ' ') {
                 //Это цикл для добавления имя родителя ответу.
-                //Его нужно как то упростить, что бы делалось за 1 цикл при добавлении ответа
+                //Его желательно как то упростить, что бы делалось за 1 цикл при добавлении ответа
                 let parentName = ''
                 let parenComment = document.querySelectorAll('.comment')
                 parenComment.forEach(function(com) {
