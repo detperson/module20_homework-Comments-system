@@ -106,13 +106,6 @@ body {
     background-image: url('./images/arrow_up.svg');
 }
 
-/*старый класс когда стрелка сортировки была картинкой*/
-/*удалить если не понадобится*/
-/*.header-panel__sort-img {*/
-/*    max-width: 15px;*/
-/*    !*margin-left: 7px;*!*/
-/*}*/
-
 .header-panel__favorites {
     display: flex;
 
@@ -177,6 +170,13 @@ body {
 .input-block__parent-answer {
     display: none;
     margin-left: 15px;
+}
+
+/*Крестик удаляет на чей комментарий отвечаем*/
+.input-block__parent-answer:hover::after {
+    display: flex;
+    content: "\00d7";
+    color: rgba(0, 0, 0, 0.4);
 }
 
 .input-block__parent-answer-logo {
@@ -296,6 +296,138 @@ body {
     opacity: 0.4;
 }
 
+@media (max-width: 1050px) {
+    .input-block {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 480px) {
+    .header-panel__comments {
+        margin-right: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    ._container {
+        padding: 0px 2px;
+    }
+
+    .header-panel {
+        flex-wrap: wrap;
+        margin-bottom: 47px;
+    }
+
+    .header-panel__comments {
+        margin-bottom: 19px;
+    }
+
+    .header-panel__comments-counter {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .header-panel__sort-text {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .header-panel__sort-arrow {
+        margin-left: 2px;
+    }
+    .header-panel__favorites-text {
+        font-size: 14px;
+        line-height: 17px;
+        margin-left: 19px;
+    }
+
+    .input-block {
+        margin-bottom: 24px;
+    }
+
+    .input-block__user-logo {
+        position: relative;
+    }
+
+    .input-block__logo-img {
+        position: absolute;
+        top: -9px;
+        top: -9px;
+    }
+
+    .user-logo-img {
+        max-width: 50px;
+    }
+
+    .input-block__form {
+        margin-left: 0;
+    }
+
+    .input-block__other {
+        flex-direction: column;
+        justify-content: normal;
+        margin-bottom: 11px
+    }
+
+    .user-name {
+        margin-left: 70px;
+    }
+
+    .input-block__parent-answer {
+        margin-left: 5px;
+    }
+
+    .input-block__parent-answer-text {
+        margin-left: 5px;
+    }
+
+    .input-block__counter-symbol {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 10px;
+        line-height: 12px;
+        margin-top: 5px;
+    }
+
+    .input-block__comment-input {
+        margin-bottom: 18px;
+    }
+
+    .input-block__input {
+        font-size: 14px;
+        line-height: 17px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 20px;
+    }
+
+    .input-block__input::placeholder {
+        font-size: 14px;
+    }
+
+    .input-block__btn {
+        margin-left: 0;
+    }
+
+    .input-block__warning-long-text {
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 0;
+        text-align: center;
+        order: 1;
+    }
+
+    .input-block__btn-send {
+        height: 50px;
+        font-size: 16px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .input-block__input-name {
+        min-width: 110px;
+    }
+}
+
 /*--------------------Комментарий--------------------------------------*/
 
 .comment {
@@ -304,6 +436,10 @@ body {
 }
 
 .comment__user-logo {
+
+}
+
+.comment__user-logo-img {
 
 }
 
@@ -342,6 +478,9 @@ body {
     /*перенос слова на след строку, если оно длинное*/
     word-break: break-all;
     margin: 0px;
+}
+
+.comment__body-for-mobile {
 }
 
 .comment__footer {
@@ -407,6 +546,99 @@ body {
 
 }
 
+@media (max-width: 480px) {
+    .comment {
+        display: block;
+        margin-top: 14px;
+    }
+
+    .comment__user-logo {
+        position: relative;
+    }
+
+    .comment__user-logo-img {
+        position: absolute;
+        top: -14px;
+    }
+
+    .comment__form {
+        margin-left: 0;
+    }
+
+    .comment__other{
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .comment__post-data {
+        font-size: 12px;
+        line-height: 15px;
+        margin-left: 29px;
+    }
+
+    .comment__text-block {
+        margin-bottom: 3px;
+    }
+
+    .comment__body {
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .comment__body-for-mobile {
+        margin-top: 14px;
+    }
+
+    .comment__footer {
+        align-items: center;
+    }
+
+    .comment__footer-answer-img {
+        height: 19px;
+    }
+
+    .comment__footer-answer-text {
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .comment__footer-favorites {
+        margin-left: 15px;
+    }
+
+    .comment__footer-favorites-logo {
+        min-width: 20px;
+        height: 19px;
+    }
+
+    .logo-active {
+
+    }
+
+    .comment__footer-favorites-text {
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .comment__footer-rating {
+        flex-direction: column-reverse;
+        margin-left: 16px;
+    }
+
+    .rating-minus-img {
+        height: 20px;
+    }
+
+    .rating-count {
+        margin: 0 auto;
+    }
+
+    .rating-plus-img{
+        height: 20px;
+    }
+}
+
 /*--------------------Ответ-на-комментарий------------------------------*/
 .answers {
     /*В этом диве лежат все отсветы на 1 комментарий*/
@@ -434,4 +666,17 @@ body {
 
 .answer__footer-favorites {
 
+}
+
+@media (max-width: 480px) {
+    .answer {
+        margin-left: 0;
+    }
+
+    .comment__other__answer-to {
+        width: 100%;
+        margin-left: 70px;
+        order: 1;
+        padding-top: 10px;
+    }
 }

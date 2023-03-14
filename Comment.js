@@ -12,7 +12,7 @@ export default class Comment {
                 out += `
                     <div class="comment" data-comment-id="${item.id}">
                         <div class="comment__user-logo">
-                            <img class="comment__user-logo user-logo-img" src="https://picsum.photos/seed/${item.name}/100" alt="user-logo">
+                            <img class="comment__user-logo-img user-logo-img" src="https://picsum.photos/seed/${item.name}/100" alt="user-logo">
                         </div>
                         <div class="comment__form">
                             <div class="comment__other">
@@ -24,7 +24,7 @@ export default class Comment {
                                 </div>
                             </div>
                             <div class="comment__text-block">
-                                <p class="comment__body">
+                                <p class="comment__body comment__body-for-mobile">
                                     ${item.body}
                                 </p>
                             </div>
@@ -70,7 +70,7 @@ export default class Comment {
                 let outAnswer = `
                     <div class="comment answer" data-comment-id="${item.id}">
                         <div class="comment__user-logo">
-                            <img class="comment__user-logo user-logo-img" src="https://picsum.photos/seed/${item.name}/100" alt="user-logo">
+                            <img class="comment__user-logo-img user-logo-img" src="https://picsum.photos/seed/${item.name}/100" alt="user-logo">
                         </div>
                         <div class="comment__form">
                             <div class="comment__other">

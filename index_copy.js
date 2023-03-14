@@ -30,23 +30,29 @@ document.querySelector('.btn-send').onclick = function () {
         rating: 0,
         inFavorites: false,
         parent: parentId,
-        answers: 0
+        answers: 0,
+        isChoiceRating: ''
     }
 
-    commentBody.value = ''
-    textArea.style.height = 'auto';
     counterSymbolMessage()
-    comments.push(comment)
-    //Обновление счетчика ответов в комментарии
-    if (parentId !== ' ') {
-        comments.forEach(function (item) {
-            if (item.id == +parentId) {
-                item.answers++
-            }
-        })
+    //Проверка что поля имя и комментарий не пустые
+    if (commentName.value !== '' && commentBody.value !== '') {
+
+        commentBody.value = ''
+        textArea.style.height = 'auto'
+        comments.push(comment)
+        //Обновление счетчика ответов в комментарии
+        if (parentId !== ' ') {
+            comments.forEach(function (item) {
+                if (item.id == +parentId) {
+                    item.answers++
+                }
+            })
+        }
+        saveComments()
+        com.showComments(comments)
     }
-    saveComments()
-    com.showComments(comments)
+
 }
 
 // функция сохранения комментариев в LocalStorage
@@ -271,14 +277,40 @@ commentField.addEventListener('click', function(event) {
         let commentId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.commentId
         let counter = event.target.previousElementSibling
         let res = counter.textContent = `${Number(counter.textContent) + 1}`
-        changeRating(commentId, +res)
+        //Повышение рейтинга только на 1
+        for (let i = 0; i < comments.length; i++) {
+            if (comments[i].id == +commentId) {
+                if (comments[i].isChoiceRating === '') {
+                    comments[i].rating = +res
+                    comments[i].isChoiceRating = true
+                } else if (comments[i].isChoiceRating === true) {
+                    counter.textContent = `${Number(counter.textContent) - 1}`
+                } else if (comments[i].isChoiceRating === false) {
+                    comments[i].rating = +res
+                    comments[i].isChoiceRating = ''
+                }
+            }
+        }
         saveComments()
         ratingColor()
     } else if (event.target.classList.contains('rating-minus-img')) {
         let commentId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.commentId
-        let counterElement = event.target.nextElementSibling
-        let counter = counterElement.textContent = `${Number(counterElement.textContent) - 1}`
-        changeRating(commentId, +counter)
+        let counter = event.target.nextElementSibling
+        let res = counter.textContent = `${Number(counter.textContent) - 1}`
+        //Понижение рейтинга только на 1
+        for (let i = 0; i < comments.length; i++) {
+            if (comments[i].id == +commentId) {
+                if (comments[i].isChoiceRating === '') {
+                    comments[i].rating = +res
+                    comments[i].isChoiceRating = false
+                } else if (comments[i].isChoiceRating === false) {
+                    counter.textContent = `${Number(counter.textContent) + 1}`
+                } else if (comments[i].isChoiceRating === true) {
+                    comments[i].rating = +res
+                    comments[i].isChoiceRating = ''
+                }
+            }
+        }
         saveComments()
         ratingColor()
     }
@@ -296,7 +328,8 @@ commentField.addEventListener('click', function(event) {
                 ${commentAuthor}
             </div>`
         let commentId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.commentId
-        document.querySelector('.input-block__parent-answer').dataset.parentId = commentId
+        showAnswerName.dataset.parentId = commentId
+        // document.querySelector('.input-block__parent-answer').dataset.parentId = commentId
     }
 
 })
@@ -313,13 +346,15 @@ function changeFavorites(commentId) {
     }
 }
 
-function changeRating(commentId, counter) {
-    for (let i = 0; i < comments.length; i++) {
-        if (comments[i].id == +commentId) {
-            comments[i].rating = counter
-        }
-    }
-}
+//Функция для изменения рейтинга, если нужно больше чем на 1 повышать
+//(использовал раньше пока не сделал повышение только на 1)
+// function changeRating(commentId, counter) {
+//     for (let i = 0; i < comments.length; i++) {
+//         if (comments[i].id == +commentId) {
+//             comments[i].rating = counter
+//         }
+//     }
+// }
 
 function ratingColor() {
     let ratingCounts = document.querySelectorAll('.rating-count')
@@ -333,3 +368,13 @@ function ratingColor() {
         }
     }
 }
+
+//Крестик удаляет на чей комментарий отвечаем
+let btnAnswerOff = document.querySelector('.input-block__parent-answer')
+btnAnswerOff.addEventListener('click', function() {
+    btnAnswerOff.style.display = 'none'
+    btnAnswerOff.innerHTML = ''
+    btnAnswerOff.dataset.parentId = ' '
+
+    console.log('Нажали крестик')
+})
