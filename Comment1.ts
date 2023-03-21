@@ -1,12 +1,8 @@
-export default class Comment {
+export default class Comment1 {
 
-    // constructor(commentsArr) {
-    //    this.commentsArr =  commentsArr
-    // }
-
-    showComments(comments) {
-        let commentField = document.querySelector('.comment-field')
-        let out = ''
+    showComments(comments: OneComment[]) {
+        let commentField: Element | null = document.querySelector('.comment-field')
+        let out: string = ''
         comments.forEach(function(item) {
             if (item.parent === ' ') {
                 out += `
@@ -51,7 +47,9 @@ export default class Comment {
             // out +=`<p class='input-block__user-name'>${item.name}</p>`
             // out +=`<p class='comment-body'>${item.body}</p>`
         })
-        commentField.innerHTML = out
+        if (commentField != null) {
+            commentField.innerHTML = out
+        }
         this.updateCounterComments()
 
         // Добавление ответов
@@ -59,15 +57,15 @@ export default class Comment {
             if (item.parent !== ' ') {
                 //Это цикл для добавления имя родителя ответу.
                 //Его желательно как то упростить, что бы делалось за 1 цикл при добавлении ответа
-                let parentName = ''
-                let parenComment = document.querySelectorAll('.comment')
-                parenComment.forEach(function(com) {
-                    if (item.parent === com.dataset.commentId) {
-                        parentName = com.getElementsByClassName('comment__user-name')[0].innerText
+                let parentName: string = ''
+                let parenComment: NodeListOf<Element> = document.querySelectorAll('.comment')
+                parenComment.forEach(function(com: Element) {
+                    if (item.parent === (<HTMLElement>com).dataset.commentId) {
+                        parentName = (<HTMLElement>com.getElementsByClassName('comment__user-name')[0]).innerText
                     }
                 })
                 //---------------------------------------------------------------------------
-                let outAnswer = `
+                let outAnswer: string = `
                     <div class="comment answer" data-comment-id="${item.id}">
                         <div class="comment__user-logo">
                             <img class="comment__user-logo-img user-logo-img" src="https://picsum.photos/seed/${item.name}/100" alt="user-logo">
@@ -108,9 +106,9 @@ export default class Comment {
 
                 // let parenComment = document.querySelectorAll('.comment')
                 parenComment.forEach(function(com) {
-                    if (item.parent === com.dataset.commentId) {
+                    if (item.parent === (<HTMLElement>com).dataset.commentId) {
                         // parentName = com.getElementsByClassName('comment__user-name')[0].innerText
-                        com.nextElementSibling.insertAdjacentHTML("beforeend", outAnswer)
+                        com.nextElementSibling?.insertAdjacentHTML("beforeend", outAnswer)
                     }
                 })
 
@@ -118,25 +116,25 @@ export default class Comment {
         })
         // Функция конвертирования времени
         // Не знаю правильно ли ее тут расположил или нет
-        function timeConverter(UNIX_timestamp){
-            let a = new Date(UNIX_timestamp * 1000);
-            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            let monthsNumbers = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-            let year = a.getFullYear();
-            let month = monthsNumbers[a.getMonth()];
-            let date = a.getDate();
-            let hour = a.getHours();
-            let min = a.getMinutes();
-            let sec = a.getSeconds();
+        function timeConverter(UNIX_timestamp: number){
+            let a: Date = new Date(UNIX_timestamp * 1000);
+            let months: string[] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let monthsNumbers: string[] = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+            let year: number = a.getFullYear();
+            let month: string = monthsNumbers[a.getMonth()];
+            let date: number = a.getDate();
+            let hour: number = a.getHours();
+            let min: number = a.getMinutes();
+            let sec: number = a.getSeconds();
             //добавляем нули в начало
             if (date < 10) {
-                date = '0' + date
+                date = Number('0' + date.toString())
             }
             if (hour < 10) {
-                hour = '0' + hour
+                hour = Number('0' + hour.toString())
             }
             if (min < 10) {
-                min = '0' + min
+                min = Number('0' + min.toString())
             }
             let time = date + '.' + month + ' ' + hour + ':' + min ;
             return time;
@@ -146,12 +144,16 @@ export default class Comment {
         comments.forEach(function(item) {
             //Добавляем логотип активного "Избранного" и кнопку "В избранном"
             if (item.inFavorites) {
-                let favoritesBtns = document.querySelectorAll('.comment__footer-favorites-logo')
-                favoritesBtns.forEach(function(favBtn) {
-                    let commentId = favBtn.closest('.comment').dataset.commentId
+                let favoritesBtns: NodeListOf<Element> = document.querySelectorAll('.comment__footer-favorites-logo')
+                favoritesBtns.forEach(function(favBtn: Element) {
+                    let commentId: string = (<HTMLElement>favBtn.closest('.comment')).dataset.commentId!
                     if (item.id == +commentId) {
                         favBtn.classList.add('logo-active')
-                        favBtn.nextElementSibling.innerText = 'В избранном'
+
+                        if (favBtn.nextElementSibling != null) {
+                            (<HTMLElement>favBtn.nextElementSibling).innerText = 'В избранном'
+                        }
+
                     }
                 })
             }
@@ -161,27 +163,31 @@ export default class Comment {
 
     //----------------Увеличение-счетчика-сообщений--------------------------------
     updateCounterComments() {
-        let counter = document.querySelector('.header-panel__comments-counter')
-        let comments = JSON.parse(localStorage.getItem('commentss'))
-        counter.innerText = `(${comments.length})`
+        let counter: HTMLElement | null = document.querySelector('.header-panel__comments-counter')
+        let comments: OneComment[] = JSON.parse(localStorage.getItem('commentss')!)
+        if (counter != null) {
+            counter.innerText = `(${comments.length})`
+        }
     }
 
     //----------------Изменение-цвета-рейтинга-------------------------------------
     ratingColor() {
-        let ratingCounts = document.querySelectorAll('.rating-count')
+        let ratingCounts: NodeListOf<HTMLElement> = document.querySelectorAll('.rating-count')
         for (let i = 0; i < ratingCounts.length; i++) {
-            if (+ratingCounts[i].textContent > 0) {
-                ratingCounts[i].style.color = '#8AC540'
-            } else if (+ratingCounts[i].textContent < 0) {
-                ratingCounts[i].style.color = '#FF0000'
-            } else if (+ratingCounts[i].textContent == 0) {
-                ratingCounts[i].style.color = 'rgba(0, 0, 0, .4)'
+            if (+ratingCounts[i] != null) {
+                if (+ratingCounts[i].textContent! > 0) {
+                    ratingCounts[i].style.color = '#8AC540'
+                } else if (+ratingCounts[i].textContent! < 0) {
+                    ratingCounts[i].style.color = '#FF0000'
+                } else if (+ratingCounts[i].textContent! == 0) {
+                    ratingCounts[i].style.color = 'rgba(0, 0, 0, .4)'
+                }
             }
         }
     }
 
     //----------------Добавление/удаление-в-избранное------------------------------
-    changeFavorites(commentId, commentsList) {
+    changeFavorites(commentId: string, commentsList: OneComment[]) {
         for (let i = 0; i < commentsList.length; i++) {
             if (commentsList[i].id == +commentId) {
                 if (commentsList[i].inFavorites == false) {
@@ -193,4 +199,16 @@ export default class Comment {
         }
     }
 
+}
+
+interface OneComment {
+    id: number
+    name: string
+    body: string
+    time: number
+    rating: number
+    inFavorites: boolean | string
+    parent: string
+    answers: number
+    isChoiceRating: boolean | string
 }

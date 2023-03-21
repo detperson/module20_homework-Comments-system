@@ -4,12 +4,18 @@
   "description": "Система комментирования на JS и TypeScript. Модуль 20. SkillFactory",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 5566"
+    "start": "http-server -p 5566",
+    "build": "npx webpack --mode production",
+    "startwp": "npx webpack --mode development"
   },
   "author": "Ilya",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "http-server": "^14.1.1"

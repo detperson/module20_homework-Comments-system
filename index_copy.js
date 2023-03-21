@@ -11,12 +11,12 @@ textArea.addEventListener("input", function () {
 
 
 let comments = []
-let com = new Comment(ratingColor)
+let com = new Comment()
 loadComments()
 
-
-// переписать на Эвент Листенер
-document.querySelector('.btn-send').onclick = function () {
+//Клик по кнопке отправить
+let btnSendComment = document.querySelector('.btn-send')
+btnSendComment.addEventListener('click', function () {
     let commentName = document.getElementById('name-input')
     let commentBody = document.getElementById('textarea1')
     let parentId = document.getElementById('parent-answer').dataset.parentId
@@ -53,7 +53,11 @@ document.querySelector('.btn-send').onclick = function () {
         com.showComments(comments)
     }
 
-}
+})
+
+// document.querySelector('.btn-send').onclick = function () {
+//     // тут код был как в функции в addEventListener
+// }
 
 // функция сохранения комментариев в LocalStorage
 function saveComments() {
@@ -261,7 +265,7 @@ commentField.addEventListener('click', function(event) {
     //Действия для кликов по кнопке избранное
     if (event.target.classList.contains('comment__footer-favorites-text') || event.target.classList.contains('comment__footer-favorites-logo')) {
         let commentId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.commentId
-        changeFavorites(commentId)
+        com.changeFavorites(commentId, comments)
         event.target.parentElement.firstElementChild.classList.toggle('logo-active')
         if (event.target.parentElement.firstElementChild.classList.contains('logo-active')){
             event.target.parentElement.lastElementChild.innerText = 'В избранном'
@@ -292,7 +296,7 @@ commentField.addEventListener('click', function(event) {
             }
         }
         saveComments()
-        ratingColor()
+        com.ratingColor()
     } else if (event.target.classList.contains('rating-minus-img')) {
         let commentId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.commentId
         let counter = event.target.nextElementSibling
@@ -312,7 +316,7 @@ commentField.addEventListener('click', function(event) {
             }
         }
         saveComments()
-        ratingColor()
+        com.ratingColor()
     }
 
     //Действия для кликов по кнопке ответить
@@ -334,17 +338,17 @@ commentField.addEventListener('click', function(event) {
 
 })
 
-function changeFavorites(commentId) {
-    for (let i = 0; i < comments.length; i++) {
-        if (comments[i].id == +commentId) {
-            if (comments[i].inFavorites == false) {
-                comments[i].inFavorites = true
-            } else {
-                comments[i].inFavorites = false
-            }
-        }
-    }
-}
+// function changeFavorites(commentId) {
+//     for (let i = 0; i < comments.length; i++) {
+//         if (comments[i].id == +commentId) {
+//             if (comments[i].inFavorites == false) {
+//                 comments[i].inFavorites = true
+//             } else {
+//                 comments[i].inFavorites = false
+//             }
+//         }
+//     }
+// }
 
 //Функция для изменения рейтинга, если нужно больше чем на 1 повышать
 //(использовал раньше пока не сделал повышение только на 1)
@@ -356,18 +360,18 @@ function changeFavorites(commentId) {
 //     }
 // }
 
-function ratingColor() {
-    let ratingCounts = document.querySelectorAll('.rating-count')
-    for (let i = 0; i < ratingCounts.length; i++) {
-        if (+ratingCounts[i].textContent > 0) {
-            ratingCounts[i].style.color = '#8AC540'
-        } else if (+ratingCounts[i].textContent < 0) {
-            ratingCounts[i].style.color = '#FF0000'
-        } else if (+ratingCounts[i].textContent == 0) {
-            ratingCounts[i].style.color = 'rgba(0, 0, 0, .4)'
-        }
-    }
-}
+// function ratingColor() {
+//     let ratingCounts = document.querySelectorAll('.rating-count')
+//     for (let i = 0; i < ratingCounts.length; i++) {
+//         if (+ratingCounts[i].textContent > 0) {
+//             ratingCounts[i].style.color = '#8AC540'
+//         } else if (+ratingCounts[i].textContent < 0) {
+//             ratingCounts[i].style.color = '#FF0000'
+//         } else if (+ratingCounts[i].textContent == 0) {
+//             ratingCounts[i].style.color = 'rgba(0, 0, 0, .4)'
+//         }
+//     }
+// }
 
 //Крестик удаляет на чей комментарий отвечаем
 let btnAnswerOff = document.querySelector('.input-block__parent-answer')
@@ -375,6 +379,4 @@ btnAnswerOff.addEventListener('click', function() {
     btnAnswerOff.style.display = 'none'
     btnAnswerOff.innerHTML = ''
     btnAnswerOff.dataset.parentId = ' '
-
-    console.log('Нажали крестик')
 })
