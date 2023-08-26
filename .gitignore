@@ -1,4 +1,9 @@
 node_modules
 dist
+.firebase
+
 index.js
 Comment1.js
+
+.firebaserc
+firebase.json
